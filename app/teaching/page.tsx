@@ -1,38 +1,35 @@
-import { teachingData } from "@/lib/data";
+import { BookMarked } from "lucide-react";
+import { PageHeader } from "../../components/PageHeader";
+import { teachingData } from "../../lib/data";
 
-export const metadata = {
-  title: "Teaching — Sajal Chakroborty",
-};
+export const metadata = { title: "Teaching" };
 
 export default function TeachingPage() {
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8 animate-fade-in">
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Teaching</h1>
+    <div className="mx-auto max-w-[90rem] px-5 py-16 sm:px-8 md:py-24 lg:px-12">
+      <PageHeader index="02" title="Teaching" description="More than five years of university teaching, from foundational calculus and statistics to advanced mathematical statistics and probability." />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {teachingData.map((institution) => (
-          <div
-            key={institution.name}
-            className="rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6 shadow-sm hover:shadow-md transition-shadow"
-          >
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-              {institution.name}
-            </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{institution.location}</p>
-            <span className="inline-block text-xs font-medium px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 mb-4">
-              {institution.role}
-            </span>
-            <ul className="space-y-2">
+      <div className="mt-20 grid gap-5 md:mt-28 md:grid-cols-2">
+        {teachingData.map((institution, index) => (
+          <article key={institution.name} className="panel group p-6 transition-colors hover:border-[#414741] sm:p-8">
+            <div className="flex items-start justify-between gap-5">
+              <BookMarked className="text-signal" size={24} strokeWidth={1.5} />
+              <span className="font-mono text-xs text-muted">0{index + 1}</span>
+            </div>
+            <h2 className="font-display mt-10 text-3xl leading-tight text-paper sm:text-4xl">{institution.name}</h2>
+            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-[0.65rem] font-bold uppercase tracking-[0.14em]">
+              <span className="text-signal">{institution.role}</span>
+              <span className="text-muted">{institution.location}</span>
+            </div>
+            <ul className="mt-8 border-t border-line">
               {institution.courses.map((course) => (
-                <li key={course.code} className="flex gap-3 text-sm text-gray-700 dark:text-gray-300">
-                  <span className="font-mono text-indigo-600 dark:text-indigo-400 font-medium shrink-0">
-                    {course.code}
-                  </span>
-                  <span>{course.name}</span>
+                <li key={course.code} className="grid grid-cols-[6.2rem_1fr] gap-4 border-b border-line py-3.5 text-sm leading-6">
+                  <span className="font-mono text-xs font-bold text-signal">{course.code}</span>
+                  <span className="text-[#c6c9c3]">{course.name}</span>
                 </li>
               ))}
             </ul>
-          </div>
+          </article>
         ))}
       </div>
     </div>
