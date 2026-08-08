@@ -1,2 +1,6 @@
 .next/
 node_modules/
+*.tsbuildinfo
+
+# Local Netlify folder
+.netlify

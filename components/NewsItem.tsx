@@ -1,51 +1,23 @@
-import { BookOpen, GraduationCap, Trophy, Mic } from "lucide-react";
-import type { NewsItem as NewsItemType } from "@/lib/data";
+import { ArrowUpRight } from "lucide-react";
+import type { NewsItem as NewsItemType } from "../lib/data";
 
-const iconMap = {
-  publication: BookOpen,
-  course: GraduationCap,
-  award: Trophy,
-  talk: Mic,
-};
-
-const colorMap = {
-  publication: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
-  course: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300",
-  award: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300",
-  talk: "bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300",
-};
-
-const labelMap = {
+const labels = {
   publication: "Publication",
-  course: "Course",
-  award: "Award",
-  talk: "Talk",
+  course: "Teaching",
+  award: "Recognition",
+  talk: "Speaking",
 };
 
-interface Props {
-  item: NewsItemType;
-  index: number;
-}
-
-export function NewsItem({ item, index }: Props) {
-  const Icon = iconMap[item.type];
-  const colorClass = colorMap[item.type];
-  const label = labelMap[item.type];
+export function NewsItem({ item, index }: { item: NewsItemType; index: number }) {
+  const separator = item.text.indexOf(":");
+  const text = separator > -1 ? item.text.slice(separator + 1).trim() : item.text;
 
   return (
-    <div
-      className="flex gap-4 p-4 rounded-lg bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 animate-fade-in"
-      style={{ animationDelay: `${index * 0.05}s` }}
-    >
-      <div className={`flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full ${colorClass}`}>
-        <Icon size={18} />
-      </div>
-      <div className="flex-1 min-w-0">
-        <span className={`inline-block text-xs font-semibold px-2 py-0.5 rounded-full mb-1 ${colorClass}`}>
-          {label}
-        </span>
-        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{item.text}</p>
-      </div>
-    </div>
+    <article className="group grid gap-3 border-b border-line py-6 transition-colors hover:bg-white/[0.025] sm:grid-cols-[3.5rem_8rem_1fr_auto] sm:items-start sm:gap-5 sm:px-3">
+      <span className="font-mono text-xs text-muted">{String(index + 1).padStart(2, "0")}</span>
+      <span className="text-[0.65rem] font-bold uppercase tracking-[0.16em] text-signal">{labels[item.type]}</span>
+      <p className="max-w-4xl text-sm leading-6 text-[#c5c8c3] sm:text-base sm:leading-7">{text}</p>
+      <ArrowUpRight size={16} className="hidden text-muted transition-colors group-hover:text-signal sm:block" />
+    </article>
   );
 }

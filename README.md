@@ -1,55 +1,51 @@
 # Sajal Chakroborty — Academic Portfolio
 
-A modern academic portfolio website built with **Next.js 14** (App Router), **TypeScript**, **TailwindCSS**, and **next-themes**.
+A dark, editorial academic portfolio for Sajal Chakroborty, Postdoctoral Scholar in Mathematical Sciences at Worcester Polytechnic Institute.
 
-## Features
+## Stack
 
-- Dark/light theme toggle (dark by default)
-- Fully responsive (mobile, tablet, desktop)
-- Multi-page layout with sticky navbar
-- Modern clean academic design with Inter font
-- All content managed via `lib/data.ts`
+- Next.js 16.3 with the App Router
+- React 19.2
+- Tailwind CSS 4.3
+- TypeScript 7 native compiler
+- ESLint 9 with the Next.js flat configuration
+- Lucide icons
 
-## Pages
+TypeScript 7 does not yet expose the programmatic compiler API used by Next.js and typescript-eslint. The project therefore follows Microsoft's side-by-side transition pattern: `@typescript/native` runs the TypeScript 7 CLI for project checks, while TypeScript 6 is present only as a temporary tooling compatibility dependency.
 
-| Route | Description |
-|-------|-------------|
-| `/` | Home (Bio + Recent News) |
-| `/publications` | Publications |
-| `/teaching` | Teaching |
-| `/education` | Education & Job Experience |
-| `/grants-awards` | Grants & Awards |
-| `/service` | Service |
-
-## Tech Stack
-
-- [Next.js 14](https://nextjs.org/) with App Router
-- [TypeScript](https://www.typescriptlang.org/)
-- [TailwindCSS v3](https://tailwindcss.com/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
-- [Lucide React](https://lucide.dev/)
-
-## Getting Started
+## Commands
 
 ```bash
 npm install
 npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) to view the site.
-
-## Build
-
-```bash
+npm run typecheck
+npm run lint
 npm run build
 npm start
 ```
 
-## Content Updates
-
-All page content is stored in `lib/data.ts`. Edit this file to update publications, teaching history, news items, etc.
+The production build runs the TypeScript 7 checker first and then uses Next.js's webpack build path. The webpack fallback is configured because some restricted CI and container environments prevent Turbopack's PostCSS worker from opening its internal loopback port.
 
 ## Deployment
 
-This project is ready to deploy on [Vercel](https://vercel.com/) with zero configuration.
-This is a modern template for an existing site that uses a basic HTML5UP template.
+The site is deployed to [sajal-chakroborty.netlify.app](https://sajal-chakroborty.netlify.app).
+
+GitHub Actions validates every pull request to `main` with a clean install, TypeScript check, ESLint run, and production build. Every push to `main` runs the same quality gate and then publishes that exact commit to the production Netlify site. The workflow can also be started manually from the Actions tab.
+
+The deployment uses these encrypted GitHub Actions secrets:
+
+- `NETLIFY_AUTH_TOKEN`
+- `NETLIFY_SITE_ID`
+
+## Routes
+
+| Route | Content |
+| --- | --- |
+| `/` | Biography, research focus, profile links, and recent news |
+| `/publications` | Journal papers, conference papers, preprints, dissertation, and thesis |
+| `/teaching` | Institutions, roles, and courses taught |
+| `/education` | Education and academic appointments |
+| `/grants-awards` | Grants, fellowships, and awards |
+| `/service` | Peer review and departmental service |
+
+Academic content is maintained in `lib/data.ts`. The portrait is stored locally at `public/images/sajal-chakroborty.jpg`.
